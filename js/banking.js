@@ -13,6 +13,18 @@ function updateTotalField(transcAmount, totalId) {
   currentTransc.innerText = newTranscTotal;
 }
 
+function updateBalance(amount, isAdd) {
+  const balanceTotal = document.getElementById("total-balance");
+  const balanceTotalText = balanceTotal.innerText;
+  const previousBalanceTotal = parseFloat(balanceTotalText);
+
+  if (isAdd) {
+    balanceTotal.innerText = previousBalanceTotal + parseFloat(amount);
+  } else {
+    balanceTotal.innerText = previousBalanceTotal - parseFloat(amount);
+  }
+}
+
 // Handle deposit button event
 document
   .getElementById("deposit-submit")
@@ -22,14 +34,7 @@ document
     updateTotalField(depositAmount, "current-deposit");
 
     // Update account balance
-
-    const balanceTotal = document.getElementById("total-balance");
-    const balanceTotalText = balanceTotal.innerText;
-    const previousBalanceTotal = parseFloat(balanceTotalText);
-
-    const newBalanceTotal = previousBalanceTotal + parseFloat(depositAmount);
-
-    balanceTotal.innerText = newBalanceTotal;
+    updateBalance(depositAmount, true);
   });
 
 // Handle withdraw button event
@@ -40,12 +45,5 @@ document
     updateTotalField(withdrawAmount, "current-withdraw");
 
     // Update account balance
-
-    const balanceTotal = document.getElementById("total-balance");
-    const balanceTotalText = balanceTotal.innerText;
-    const previousBalanceTotal = parseFloat(balanceTotalText);
-
-    const newBalanceTotal = previousBalanceTotal - parseFloat(withdrawAmount);
-
-    balanceTotal.innerText = newBalanceTotal;
+    updateBalance(withdrawAmount, false);
   });
